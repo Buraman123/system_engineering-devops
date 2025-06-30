@@ -1,4 +1,4 @@
-c#!/usr/bin/env bash
+#!/usr/bin/env bash
 # This script displays "Best School" 10 times, printing "Hi" on a new line at the 9th iteration
 count=1
 while [ $count -le 10 ]
