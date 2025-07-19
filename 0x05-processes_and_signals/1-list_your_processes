@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# A Bash script that displays 'root' in an 8-character wide field
+# A Bash script that displays root processes in 8-character format
 
-printf "%-8s\n" "root"
+ps -e -o user --no-headers | grep "^root$" | head -1 | awk '{printf "%-8s\n", $1}'
