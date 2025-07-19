@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-# A Bash script that displays current user's running processes including full command line
+# A Bash script that displays the user running the script (as a one-column output labeled USER)
 
-ps -u "$USER" -o user,cmd
+echo "USER"
+whoami
