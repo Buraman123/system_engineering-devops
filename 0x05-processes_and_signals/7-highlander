@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-# A Bash script that runs indefinitely and handles SIGTERM signals
-
-# Trap SIGTERM to display message instead of terminating
+# A Bash script that prints "To infinity and beyond" indefinitely every 2 seconds
 trap 'echo "I am invincible!!!"' SIGTERM
 
-# Infinite loop with sleep
 while true; do
     echo "To infinity and beyond"
     sleep 2
