@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# A Bash script that displays all currently running processes with USER and full command, including TTY-less ones
+# A Bash script that displays current user's running processes including full command line
 
-ps -eo user,cmd
+ps -u "$USER" -o user,cmd
