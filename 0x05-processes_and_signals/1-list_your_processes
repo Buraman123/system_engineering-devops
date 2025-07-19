@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# A Bash script that displays the user running the script (as a one-column output labeled USER)
+# This script lists all running processes in a user-friendly, hierarchical format.
 
-echo "USER"
-whoami
+ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,command --forest
