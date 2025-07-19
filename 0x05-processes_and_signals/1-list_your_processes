@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# A Bash script that displays processes with custom formatted output
+# A Bash script that displays only the USER column of running processes
 
-ps -e -o user,start,cmd --no-headers | while read -r user start cmd; do
-    # Convert start time to HH:MM:SS format
-    formatted_time=$(date -d "$start" +"%H:%M:%S" 2>/dev/null || echo "$start")
-    printf "%-8s %-8s %s\n" "$user" "$formatted_time" "$cmd"
-done | awk 'BEGIN {print "USER    STARTED CMD"} NR==1 || !/^ /'
+ps -e -o user --no-headers | sort -u | awk '{printf "%-8s\n", $1}'
