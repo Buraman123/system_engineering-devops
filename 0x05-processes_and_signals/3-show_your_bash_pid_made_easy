@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-# A Bash script that displays PID and full path of all bash processes
+# A Bash script that displays the PID and full path of all processes containing the word "bash", without using ps
 
-pgrep -a bash | awk '{print $1, $(NF)}' | while read -r pid cmd; do
-    # Get the full executable path
-    exe=$(readlink -f "/proc/$pid/exe" 2>/dev/null)
-    # If we got a path, print in requested format
-    if [[ -n "$exe" ]]; then
-        echo "$pid $exe"
-    fi
-done | grep -E '[0-9]+ /.*bash$'
+pgrep -a bash | awk '{print $1, $2}'
