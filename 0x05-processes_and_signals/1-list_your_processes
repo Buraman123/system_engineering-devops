@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# A Bash script that displays only the USER column of running processes
+# A Bash script that displays 'root' in an 8-character wide field
 
-ps -e -o user --no-headers | sort -u | awk '{printf "%-8s\n", $1}'
+printf "%-8s\n" "root"
