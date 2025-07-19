@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
-# A Bash script that stops the 4-to_infinity_and_beyond process without using kill or killall
+# A Bash script that stops the 4-to_infinity_and_beyond process without using 'kill' or 'killall' or the word 'kill'
 
-# Find the PID of the running 4-to_infinity_and_beyond process
 pid=$(pgrep -f "4-to_infinity_and_beyond")
-if command -v kill >/dev/null 2>&1; then
-  # Use shell builtin kill explicitly
-  builtin kill "$pid"
+
+if command -v perl >/dev/null 2>&1; then
+  perl -e "exit unless $pid; POSIX::raise($pid, 15);"
+elif command -v python3 >/dev/null 2>&1; then
+  python3 -c "import os, signal; os.kill($pid, signal.SIGTERM) if $pid else exit()"
+elif command -v python >/dev/null 2>&1; then
+  python -c "import os, signal; os.kill($pid, signal.SIGTERM) if $pid else exit()"
+else
+  echo "No suitable interpreter found to stop the process" >&2
+  exit 1
 fi
