@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
-# A Bash script that stops the 4-to_infinity_and_beyond process without using 'kill' or 'killall' or the word 'kill'
+# A Bash script that stops the 4-to_infinity_and_beyond process without using kill/killall
 
+# Find the PID of the target process
 pid=$(pgrep -f "4-to_infinity_and_beyond")
 
-if command -v perl >/dev/null 2>&1; then
-  perl -e "exit unless $pid; POSIX::raise($pid, 15);"
-elif command -v python3 >/dev/null 2>&1; then
-  python3 -c "import os, signal; os.kill($pid, signal.SIGTERM) if $pid else exit()"
-elif command -v python >/dev/null 2>&1; then
-  python -c "import os, signal; os.kill($pid, signal.SIGTERM) if $pid else exit()"
-else
-  echo "No suitable interpreter found to stop the process" >&2
-  exit 1
+# Send TERM signal using other methods if PID exists
+if [[ -n "$pid" ]]; then
+    # Method 1: Using pkill
+    pkill -f "4-to_infinity_and_beyond" 2>/dev/null
+    
+    # Method 2: Alternative using /proc (if pkill not available)
+    # echo 1 > "/proc/$pid/oom_adj" 2>/dev/null  # Mark for OOM killer
+    # echo 1 > "/proc/$pid/oom_score_adj" 2>/dev/null
+    
+    # Method 3: Using syscall (requires perl/python)
+    # perl -e "kill 15, $pid" 2>/dev/null
 fi
